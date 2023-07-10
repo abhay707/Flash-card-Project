@@ -8,9 +8,9 @@ to_learn = {}
 
 
 try:
-    data = pandas.read_csv('data/words_to_learn.csv')
+    data = pandas.read_csv('words_to_learn.csv')
 except FileNotFoundError:
-    original_data = pandas.read_csv("data/french_words.csv")
+    original_data = pandas.read_csv("french_words.csv")
     to_learn = original_data.to_dict(orient="records")
 # french_words = []
 # new_dict = {row.French: row.English for (index, row) in data.iterrows()}
@@ -38,7 +38,7 @@ def next_card():
 def known_card():
     to_learn.remove(current_card)
     data = pandas.DataFrame(to_learn)
-    data.to_csv("data/words_to_learn.csv", index=False)
+    data.to_csv("words_to_learn.csv", index=False)
     next_card()
 
 
@@ -50,8 +50,8 @@ flip_timer = window.after(3000, func=card_flip)
 
 canvas = Canvas(width=800, height=526)
 
-card_front = PhotoImage(file='images/card_front.png')
-card_back = PhotoImage(file='images/card_back.png')
+card_front = PhotoImage(file='card_front.png')
+card_back = PhotoImage(file='card_back.png')
 canvas_image = canvas.create_image(400, 263, image=card_front)
 
 canvas.config(bg=BACKGROUND_COLOR, highlightthickness=0)
@@ -60,11 +60,11 @@ canvas.grid(column=0, row=0, columnspan=2)
 card_title = canvas.create_text(400, 150, text="", font=("Ariel", 40, "italic"))
 card_word = canvas.create_text(400, 265, text="", font=("Ariel", 60, "bold"))
 
-cancel_image = PhotoImage(file='E:/codes/Python/projects/flash card project/images/wrong.png')
+cancel_image = PhotoImage(file='wrong.png')
 button_cancel = Button(image=cancel_image, highlightthickness=0, command=next_card)
 button_cancel.grid(column=0, row=1)
 
-right_image = PhotoImage(file='E:/codes/Python/projects/flash card project/images/right.png')
+right_image = PhotoImage(file='right.png')
 button_right = Button(image=right_image, highlightthickness=0, command=known_card)
 button_right.grid(column=1, row=1)
 
